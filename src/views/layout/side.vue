@@ -111,6 +111,7 @@ export default {
 <style lang="scss" scoped>
 .hideClass {
   width: 64px !important;
+  overflow: hidden;
 }
 .side {
   .el-aside {
