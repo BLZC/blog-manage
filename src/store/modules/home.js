@@ -39,7 +39,7 @@ export default {
     },
     //添加tab
     addTabs(state, value) {
-      if (state.tabs.indexOf(value) < 0) {
+      if (JSON.stringify(state.tabs).indexOf(JSON.stringify(value)) < 0) {
         state.tabs.push(value)
       } else {
         state.selectTab = value
@@ -47,7 +47,7 @@ export default {
     },
     //删除tab
     closeTab(state, value) {
-      if (state.tabs.indexOf(value) > 0) {
+      if (state.tabs.indexOf(value) > -1) {
         state.tabs.splice(state.tabs.indexOf(value), 1)
       }
     },
