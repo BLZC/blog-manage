@@ -77,3 +77,11 @@ th {
   padding: 0;
   text-align: left;
 }
+
+.lzc-flex {
+  display: flex;
+  display: -webkit-flex;
+  flex-direction: none;
+  justify-content: flex-start;
+  align-items: center;
+}

@@ -33,5 +33,3 @@ yarn run lint
 ### Customize configuration
 
 See [Configuration Reference](https://cli.vuejs.org/config/).
-
-### 标签页首页不允许关闭

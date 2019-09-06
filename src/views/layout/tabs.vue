@@ -52,10 +52,8 @@ export default {
       let len = this.tabs.length
       if (len) {
         let item = this.tabs[len - 1]
-        let path = item.path
         this.switchTab(item)
       }
-
     },
     //切换标签
     switchTab (value) {
@@ -73,7 +71,6 @@ export default {
     },
     //关闭其他标签
     closeOther () {
-      console.log(1)
       this.$store.commit('closeOther')
     },
     //关闭全部标签
@@ -90,7 +87,7 @@ export default {
 .tabs {
   display: flex;
   flex-direction: row;
-  justify-content: start;
+  justify-content: flex-start;
   align-items: center;
   .close_button {
     position: fixed;

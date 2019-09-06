@@ -1,6 +1,6 @@
 <template name="component-name">
   <div>
-    footer
+    @lzc 联系邮箱：546785527@qq.com
   </div>
 </template>
 <script>

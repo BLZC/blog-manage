@@ -16,6 +16,7 @@
               :offset="17"
               class="message">
         <el-badge :value="12"
+                  style="cursor:pointer"
                   class="item">
           <i class="iconfont iconxiaoxi"></i>
         </el-badge>
@@ -23,6 +24,7 @@
       <el-col :span="2"
               class="information">
         <el-dropdown size="small"
+                     style="cursor:pointer"
                      placement="bottom">
           <span class="el-dropdown-link">
             <i class="iconfont iconxiugaitouxiang"></i>

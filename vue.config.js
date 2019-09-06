@@ -1,7 +1,7 @@
 // const path = require('path')
 // const webpack = require('webpack')
-const httpType = 'http://'
-const proxyUrl = '10.20.2.22:18091' // 代理地址设置
+// const httpType = 'http://'
+const proxyUrl = 'http://localhost:9001' // 代理地址设置
 module.exports = {
   //   assetsDir: 'static',
   // 构建时不进行eslint校验
@@ -11,10 +11,10 @@ module.exports = {
   devServer: {
     proxy: {
       '/api': {
-        target: httpType + proxyUrl,
+        target: proxyUrl,
         changeOrigin: true,
         pathRewrite: {
-          '^/api/': '/'
+          '^/api/': ''
         }
       }
     }

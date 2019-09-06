@@ -1,5 +1,7 @@
 import Vue from 'vue'
 import Router from 'vue-router'
+import shop from './module/shop'
+import { blog } from './module/blog'
 Vue.use(Router)
 const originalPush = Router.prototype.push
 Router.prototype.push = function push(location) {
@@ -20,22 +22,15 @@ export default new Router({
           name: 'index',
           component: () => import('../views/home/index.vue')
         },
-        {
-          path: '/classification',
-          name: 'classification',
-          component: () => import('../views/shop/classification.vue')
-        },
-        {
-          path: '/list',
-          name: 'list',
-          component: () => import('../views/shop/list.vue')
-        },
-        {
-          path: '/attribute',
-          name: 'attribute',
-          component: () => import('../views/shop/attribute.vue')
-        }
+        //商城模块
+        ...shop,
+        ...blog
       ]
+    },
+    {
+      path: '/login',
+      name: 'login',
+      component: () => import('../views/login/login')
     }
   ]
 })

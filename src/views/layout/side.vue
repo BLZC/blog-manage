@@ -82,6 +82,19 @@ export default {
               icon: ''
             }
           ]
+        },
+        {
+          id: 6,
+          name: '博客系统',
+          icon: 'iconfont iconbokeblogger3',
+          children: [
+            {
+              id: 7,
+              name: '用户管理',
+              path: '/userManage',
+              icon: ''
+            }
+          ]
         }
       ]
     }
