@@ -5,20 +5,8 @@ export default {
     icon: '/images/hide.png',
     text: 'Api管理系统',
     tipText: '收缩菜单',
-    tabs: [
-      {
-        id: 1,
-        name: '门户首页',
-        path: '/index',
-        icon: 'iconfont iconshouye'
-      }
-    ],
-    selectTab: {
-      id: 1,
-      name: '门户首页',
-      path: '/index',
-      icon: 'iconfont iconshouye'
-    }
+    tabs: [],
+    selectTab: {}
   },
   getters: {},
   mutations: {

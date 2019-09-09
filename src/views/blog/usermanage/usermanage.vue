@@ -18,6 +18,7 @@
       </div>
       <div class="item_btn2">
         <el-button type="danger"
+                   @click="Delete"
                    icon="el-icon-delete">删除</el-button>
       </div>
     </div>
@@ -54,6 +55,18 @@ export default {
           type: 'text',
           url: '/getuserDetail',
           text: '编辑'
+        },
+        {
+          id: 2,
+          type: 'text',
+          url: '/deleteuser',
+          text: '删除'
+        },
+        {
+          id: 3,
+          type: 'text',
+          url: '/deleteuser',
+          text: '其他'
         }
       ] /* Table operator */,
       dialog: {
@@ -136,6 +149,13 @@ export default {
         if (res.status) {
           this.childForm = res.result
         }
+      })
+    },
+    //delete user
+    Delete () {
+      let ids = []
+      this.$store.state.table.multipleSelection.forEach(element => {
+        ids.push(element.id)
       })
     }
   }

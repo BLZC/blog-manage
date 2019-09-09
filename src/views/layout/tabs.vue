@@ -120,15 +120,14 @@ export default {
       left: auto;
       top: auto;
       right: 0;
-      bottom: 18%;
-      height: 64%;
+      bottom: 6%;
+      height: 88%;
       width: 1.3px;
-      background-color: #b5b5b5;
+      background-color: #fff;
     }
   }
   .tab_item:hover {
     background-color: #fff;
-    border-radius: 10px 10px 0 0;
   }
   .tab_item:active {
     background-color: #fff;

@@ -7,11 +7,16 @@
               stripe
               :header-cell-style="SETHEADER"
               max-height="330"
+              @selection-change="handleSelectionChange"
               style="width: 100%">
+      <el-table-column type="selection"
+                       width="55">
+      </el-table-column>
       <el-table-column v-for="item in Tableheader"
                        :key="item.id"
                        :prop="item.prop"
                        :label="item.label"
+                       show-overflow-tooltip
                        :width="item.width">
       </el-table-column>
       <slot></slot>
@@ -27,6 +32,7 @@
 export default {
   data () {
     return {
+      // multipleSelection: []
     }
   },
   props: {
@@ -48,6 +54,9 @@ export default {
         return ''
       }
     },
+    handleSelectionChange (val) {
+      this.$store.commit('handlemultipleSelection', val)
+    }
   }
 }
 </script>

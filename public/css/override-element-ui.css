@@ -5,6 +5,10 @@
 .el-button {
   padding: 9px 15px !important;
 }
+.el-button--text {
+  padding: 9px 10px !important;
+  margin-left: 2px !important;
+}
 .el-dialog__header {
   text-align: left;
   background-color: #2f4f4f;

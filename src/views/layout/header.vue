@@ -68,6 +68,7 @@ export default {
   .img-col {
     text-align: left;
     padding-left: 5px;
+    cursor: pointer;
     .icon {
       height: 20px;
       width: 20px;
