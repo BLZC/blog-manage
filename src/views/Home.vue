@@ -76,6 +76,7 @@ export default {
         background-color: #fff;
         color: #333;
         text-align: center;
+        padding: 15px 20px 5px;
       }
     }
   }

@@ -6,7 +6,7 @@
               size="small"
               stripe
               :header-cell-style="SETHEADER"
-              max-height="330"
+              :max-height="maxh"
               @selection-change="handleSelectionChange"
               style="width: 100%">
       <el-table-column type="selection"
@@ -32,6 +32,7 @@
 export default {
   data () {
     return {
+      maxh: null
       // multipleSelection: []
     }
   },
@@ -45,6 +46,9 @@ export default {
       required: true
     },
   },
+  created () {
+    this.calculate()
+  },
   methods: {
     //头部样式
     SETHEADER ({ rowIndex }) {
@@ -54,9 +58,21 @@ export default {
         return ''
       }
     },
+    //选择框状态改变
     handleSelectionChange (val) {
       this.$store.commit('handlemultipleSelection', val)
+    },
+    //计算max-height
+    calculate () {
+      let hg = window.screen.height
+      let mxh = hg - 400
+      this.maxh = mxh
     }
   }
 }
 </script>
+<style lang="scss">
+.el-pagination {
+  margin-top: 10px;
+}
+</style>

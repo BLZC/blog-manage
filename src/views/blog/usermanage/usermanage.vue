@@ -18,7 +18,7 @@
       </div>
       <div class="item_btn2">
         <el-button type="danger"
-                   @click="Delete"
+                   @click="Deleteall"
                    icon="el-icon-delete">删除</el-button>
       </div>
     </div>
@@ -32,7 +32,7 @@
           <template slot-scope="scope">
             <el-button v-for="bitem in Slotbuttons"
                        :key="bitem.id"
-                       @click="Edit(scope.row, bitem.url)"
+                       @click="Handle(scope.row, bitem.id, bitem.url)"
                        :type="bitem.type">{{bitem.text}}</el-button>
           </template>
         </el-table-column>
@@ -59,7 +59,7 @@ export default {
         {
           id: 2,
           type: 'text',
-          url: '/deleteuser',
+          url: '/apiusersdelete',
           text: '删除'
         },
         {
@@ -151,12 +151,60 @@ export default {
         }
       })
     },
-    //delete user
-    Delete () {
+    //handle Function
+    Handle (id, type, url) {
+      switch (type) {
+        case 1:
+          this.Edit(id, url);
+          break;
+        case 2:
+          this.Deleteone(id, url);
+          break;
+      }
+    },
+    //delete one user
+    Deleteone (id, url) {
+      this.$confirm('此操作将永久删除该文件, 是否继续?', '提示', {
+        confirmButtonText: '确定',
+        cancelButtonText: '取消',
+        type: 'warning'
+      }).then(() => {
+        this.$post(url, { ids: id.id }).then(res => {
+          if (res.status) {
+            this.$LZCMessage(res.message, 'success')
+            this.getUsers()
+          }
+        })
+      }).catch(() => {
+        this.$message({
+          type: 'info',
+          message: '已取消删除'
+        });
+      });
+    },
+    //delete all user
+    Deleteall () {
       let ids = []
       this.$store.state.table.multipleSelection.forEach(element => {
         ids.push(element.id)
       })
+      this.$confirm('此操作将永久删除该文件, 是否继续?', '提示', {
+        confirmButtonText: '确定',
+        cancelButtonText: '取消',
+        type: 'warning'
+      }).then(() => {
+        this.$post('/apiusersdelete', { ids: ids }).then(res => {
+          if (res.status) {
+            this.$LZCMessage(res.message, 'success')
+            this.getUsers()
+          }
+        })
+      }).catch(() => {
+        this.$message({
+          type: 'info',
+          message: '已取消删除'
+        });
+      });
     }
   }
 }
