@@ -1,0 +1,44 @@
+/**
+  *修改element ui 默认样式
+*/
+
+.el-button {
+  padding: 9px 15px !important;
+}
+.el-dialog__header {
+  text-align: left;
+  background-color: #2f4f4f;
+}
+.el-dialog__title {
+  color: #fff !important;
+}
+.el-dialog__close {
+  font-size: 22px !important;
+  color: #fff !important;
+}
+.dialog-footer {
+  text-align: center;
+}
+.el-input__inner {
+  height: 32px !important;
+  line-height: 32px !important;
+}
+
+.el-dialog {
+  width: 780px !important;
+}
+.el-form-item__label {
+  width: 120px !important;
+}
+.el-form-item__content {
+  width: 210px !important;
+}
+.el-form-item {
+  width: 360px;
+  display: flex;
+  display: -webkit-flex;
+  flex-direction: none;
+  justify-content: flex-start;
+  align-items: center;
+  margin-left: 10px;
+}

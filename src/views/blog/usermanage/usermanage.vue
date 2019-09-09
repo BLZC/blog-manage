@@ -1,5 +1,8 @@
+<!-- 用户管理 -->
 <template name="component-name">
   <div class="userManage">
+    <add-form :dialog="dialog"
+              :data="childForm"></add-form>
     <div class="topbtn lzc-flex">
       <div class="item_ipt">
         <el-input placeholder="请输入查询条件，点击回车确认"
@@ -11,85 +14,130 @@
       <div class="item_btn1">
         <el-button type="primary"
                    icon="el-icon-plus"
-                   size="small">新增</el-button>
+                   @click="Add">新增</el-button>
       </div>
       <div class="item_btn2">
         <el-button type="danger"
-                   icon="el-icon-delete"
-                   size="small">删除</el-button>
+                   icon="el-icon-delete">删除</el-button>
       </div>
     </div>
     <div class="table">
       <Table :Tabledata="tableData"
-             :Tableheader="tbHeader"></Table>
+             :Tableheader="tbHeader"
+             :dialog="dialog">
+        <el-table-column fixed="right"
+                         label="操作"
+                         width="180">
+          <template slot-scope="scope">
+            <el-button v-for="bitem in Slotbuttons"
+                       :key="bitem.id"
+                       @click="Edit(scope.row, bitem.url)"
+                       :type="bitem.type">{{bitem.text}}</el-button>
+          </template>
+        </el-table-column>
+      </Table>
     </div>
   </div>
 </template>
 <script>
+//Table component
 import Table from '../../../components/table/index'
+//Dialog component
+import AddForm from './addForm'
 export default {
   data () {
     return {
+      childForm: {} /* data in dialog -->form  */,
+      Slotbuttons: [
+        {
+          id: 1,
+          type: 'text',
+          url: '/getuserDetail',
+          text: '编辑'
+        }
+      ] /* Table operator */,
+      dialog: {
+        type: 1,
+        show: false,
+        title: ''
+      } /* dialog status */,
       search: '',
       tbHeader: [
         {
           id: 1,
-          prop: 'date',
-          label: '日期',
-          width: '180'
-        },
-        {
-          id: 2,
           prop: 'name',
           label: '姓名',
           width: '180'
         },
         {
+          id: 2,
+          prop: 'birth',
+          label: '出生日期',
+          width: '180'
+        },
+        {
           id: 3,
+          prop: 'age',
+          label: '年龄',
+          width: '120'
+        },
+
+        {
+          id: 4,
+          prop: 'sex',
+          label: '性别',
+          width: '120'
+        },
+        {
+          id: 5,
           prop: 'address',
           label: '地址'
         }
-      ],
-      tableData: [{
-        date: '2016-05-02',
-        name: '王小虎',
-        address: '上海市普陀区金沙江路 1518 弄'
-      }, {
-        date: '2016-05-04',
-        name: '王小虎',
-        address: '上海市普陀区金沙江路 1517 弄'
-      }, {
-        date: '2016-05-01',
-        name: '王小虎',
-        address: '上海市普陀区金沙江路 1519 弄'
-      }, {
-        date: '2016-05-03',
-        name: '王小虎',
-        address: '上海市普陀区金沙江路 1516 弄'
-      }, {
-        date: '2016-05-01',
-        name: '王小虎',
-        address: '上海市普陀区金沙江路 1519 弄'
-      }, {
-        date: '2016-05-03',
-        name: '王小虎',
-        address: '上海市普陀区金沙江路 1516 弄'
-      }, {
-        date: '2016-05-01',
-        name: '王小虎',
-        address: '上海市普陀区金沙江路 1519 弄'
-      }, {
-        date: '2016-05-03',
-        name: '王小虎',
-        address: '上海市普陀区金沙江路 1516 弄'
-      }]
+      ] /* Table Header config */,
+      tableData: [] /* table data */
     }
   },
   components: {
-    Table
+    Table,
+    AddForm
+  },
+  mounted () {
+    //初始化数据
+    this.getUsers()
   },
   methods: {
-
+    //get user list
+    getUsers () {
+      this.$post('/getusers', {}).then(res => {
+        if (res.status) {
+          this.tableData = res.result;
+        }
+      })
+    },
+    // add user
+    Add () {
+      this.dialog.show = true;
+      this.dialog.title = "新增";
+      this.dialog.type = 1;
+      this.childForm = {
+        name: '',
+        age: null,
+        sex: null,
+        birth: '',
+        address: ''
+      }
+    },
+    //edit user
+    Edit (id, url) {
+      this.dialog.title = "编辑";
+      this.dialog.show = true;
+      this.dialog.type = 2;
+      this.$post(url, { id: id.id }).then(res => {
+        if (res.status) {
+          this.childForm = res.result
+        }
+      })
+    }
   }
 }
 </script>

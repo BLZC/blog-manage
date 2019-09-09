@@ -14,6 +14,7 @@
                        :label="item.label"
                        :width="item.width">
       </el-table-column>
+      <slot></slot>
     </el-table>
     <el-pagination :page-sizes="[100, 200, 300, 400]"
                    :page-size="100"
@@ -26,7 +27,6 @@
 export default {
   data () {
     return {
-
     }
   },
   props: {
@@ -37,16 +37,17 @@ export default {
     Tableheader: {
       type: Array,
       required: true
-    }
+    },
   },
   methods: {
+    //头部样式
     SETHEADER ({ rowIndex }) {
       if (rowIndex == 0) {
         return 'background:	#2F4F4F; color: #fff;'
       } else {
         return ''
       }
-    }
+    },
   }
 }
 </script>
