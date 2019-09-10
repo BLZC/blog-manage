@@ -82,7 +82,11 @@ export default {
 </script>
 <style lang="scss" scoped>
 .Sclass {
-  background-color: #fff;
+  background-color: #fff !important;
+  color: #000 !important;
+  .el-icon-close {
+    display: inline-block !important;
+  }
 }
 .tabs {
   display: flex;
@@ -99,11 +103,14 @@ export default {
     background-color: #bbffff;
   }
   .tab_item {
+    margin-right: 2px;
     position: relative;
     width: 100px;
     height: 35px;
     cursor: pointer;
     line-height: 35px;
+    background-color: rgba(0, 0, 0, 0.5);
+    color: #fff;
     .tab_item_container {
       display: flex;
       flex-direction: row;
@@ -113,25 +120,22 @@ export default {
         width: 70%;
         font-size: 14px;
       }
-    }
-    .tab_item_container:after {
-      content: '';
-      position: absolute;
-      left: auto;
-      top: auto;
-      right: 0;
-      bottom: 6%;
-      height: 88%;
-      width: 1.3px;
-      background-color: #fff;
+      .el-icon-close {
+        display: none;
+      }
     }
   }
   .tab_item:hover {
     background-color: #fff;
-  }
-  .tab_item:active {
-    background-color: #fff;
-    border-radius: 10px 10px 0 0;
+    color: #000;
+    .el-icon-close {
+      display: inline-block;
+    }
+    .el-icon-close:hover {
+      background-color: #ddd;
+      padding: 2px;
+      border-radius: 50%;
+    }
   }
 }
 </style>

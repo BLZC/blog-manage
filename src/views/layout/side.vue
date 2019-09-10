@@ -5,7 +5,7 @@
       <el-collapse-transition>
         <el-menu default-active=1
                  class="el-menu-vertical-demo"
-                 background-color="#545c64"
+                 background-color="transparent"
                  text-color="#fff"
                  :collapse="isCollapse"
                  router
@@ -93,6 +93,18 @@ export default {
               name: '用户管理',
               path: '/userManage',
               icon: ''
+            },
+            {
+              id: 8,
+              name: '文章管理',
+              path: '/articleManage',
+              icon: ''
+            },
+            {
+              id: 9,
+              name: '评论管理',
+              path: '/plManage',
+              icon: ''
             }
           ]
         }
@@ -121,15 +133,17 @@ export default {
   }
 }
 </script>
-<style lang="scss" scoped>
+<style lang="scss" >
 .hideClass {
   width: 64px !important;
   overflow: hidden;
 }
+.el-submenu__title:hover {
+  background-color: rgba(0, 0, 0, 0.3) !important;
+}
 .side {
   .el-aside {
-    // position: fixed;
-    background-color: rgb(84, 92, 100);
+    opacity: 1;
     color: #333;
     text-align: center;
     height: 100%;
@@ -155,6 +169,9 @@ export default {
             padding-left: 55px !important;
             font-weight: 500;
           }
+          .el-menu-item:hover {
+            background-color: rgba(0, 0, 0, 0.3) !important;
+          }
         }
       }
       .el-menu-item {
@@ -163,6 +180,9 @@ export default {
         .iconfont {
           margin-right: 10px;
         }
+      }
+      .el-menu-item:hover {
+        background-color: rgba(0, 0, 0, 0.3) !important;
       }
     }
   }

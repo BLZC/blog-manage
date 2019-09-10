@@ -10,8 +10,7 @@
         <Tabs></Tabs>
         <el-main>
           <!-- <el-scrollbar> -->
-          <transition enter-active-class="fadeInUp"
-                      mode="out-in">
+          <transition name="el-zoom-in-center">
             <router-view />
           </transition>
           <!-- </el-scrollbar> -->
@@ -51,13 +50,14 @@ export default {
 <style scoped lang="scss">
 .home {
   height: 100vh;
+  background-image: url('../../public/images/main.jpg');
   .el-container {
     height: 100%;
     .el-container {
       .el-header,
       .el-footer {
         padding-left: 0 !important;
-        background-color: #b3c0d1;
+        background-color: transparent;
         color: #333;
         text-align: center;
         line-height: 60px;
@@ -70,7 +70,7 @@ export default {
       .tabs {
         width: 100%;
         height: 35px;
-        background-color: #f5f5f5;
+        background-color: transparent;
       }
       .el-main {
         background-color: #fff;

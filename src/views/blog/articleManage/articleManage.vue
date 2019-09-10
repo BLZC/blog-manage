@@ -1,6 +1,6 @@
-<!-- 用户管理 -->
-<template name="component-name">
-  <div class="userManage">
+<!-- 文章管理 -->
+<template>
+  <div class="articleManage">
     <add-form :dialog="dialog"
               :data="childForm"></add-form>
     <top-btn>
@@ -22,30 +22,28 @@
                    icon="el-icon-delete">删除</el-button>
       </div>
     </top-btn>
-    <div class="table">
-      <Table :Tabledata="tableData"
-             :Tableheader="tbHeader"
-             :pagination="pagination"
-             :dialog="dialog">
-        <el-table-column fixed="right"
-                         label="操作"
-                         width="180">
-          <template slot-scope="scope">
-            <el-button v-for="bitem in Slotbuttons"
-                       :key="bitem.id"
-                       @click="Handle(scope.row, bitem.id, bitem.url)"
-                       :type="bitem.type">{{bitem.text}}</el-button>
-          </template>
-        </el-table-column>
-      </Table>
-    </div>
+    <Table :Tabledata="tableData"
+           :Tableheader="tbHeader"
+           :pagination="pagination"
+           :dialog="dialog">
+      <el-table-column fixed="right"
+                       label="操作"
+                       width="180">
+        <template slot-scope="scope">
+          <el-button v-for="bitem in Slotbuttons"
+                     :key="bitem.id"
+                     @click="Handle(scope.row, bitem.id, bitem.url)"
+                     :type="bitem.type">{{bitem.text}}</el-button>
+        </template>
+      </el-table-column>
+    </Table>
   </div>
 </template>
 <script>
 //topbtns component
 import TopBtn from '../../../components/topbtns'
 //Table component
-import Table from '../../../components/table/index'
+import Table from '../../../components/table'
 //Dialog component
 import AddForm from './addForm'
 export default {
@@ -68,12 +66,6 @@ export default {
           type: 'text',
           url: '/apiusersdelete',
           text: '删除'
-        },
-        {
-          id: 3,
-          type: 'text',
-          url: '/deleteuser',
-          text: '其他'
         }
       ] /* Table operator */,
       dialog: {
@@ -85,33 +77,33 @@ export default {
       tbHeader: [
         {
           id: 1,
-          prop: 'name',
-          label: '姓名',
+          prop: 'title',
+          label: '题目',
           width: '180'
         },
         {
           id: 2,
-          prop: 'birth',
-          label: '出生日期',
+          prop: 'author',
+          label: '作者',
           width: '180'
         },
         {
           id: 3,
-          prop: 'age',
-          label: '年龄',
+          prop: 'time',
+          label: '发表时间',
           width: '120'
         },
 
         {
           id: 4,
-          prop: 'sex',
-          label: '性别',
+          prop: 'classification',
+          label: '分类',
           width: '120'
         },
         {
           id: 5,
-          prop: 'address',
-          label: '地址'
+          prop: 'content',
+          label: '内容'
         }
       ] /* Table Header config */,
       tableData: [] /* table data */
@@ -129,7 +121,7 @@ export default {
   methods: {
     //get user list
     getUsers () {
-      this.$post('/getusers', {}).then(res => {
+      this.$post('/getallarticles', {}).then(res => {
         if (res.status) {
           this.tableData = res.result;
         }

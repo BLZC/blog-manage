@@ -1,6 +1,6 @@
 <!-- 封装table -->
 <template name="component-name">
-  <div>
+  <div class="table">
     <el-table :data="Tabledata"
               border
               size="small"
@@ -21,10 +21,13 @@
       </el-table-column>
       <slot></slot>
     </el-table>
-    <el-pagination :page-sizes="[100, 200, 300, 400]"
-                   :page-size="100"
+    <el-pagination :page-sizes="[10, 20, 50, 100]"
+                   :page-size="pagination.psize"
                    layout="total, sizes, prev, pager, next, jumper"
-                   :total="400">
+                   @size-change="handleSizeChange"
+                   @current-change="handleCurrentChange"
+                   :current-page.sync="currentPage"
+                   :total="pagination.total">
     </el-pagination>
   </div>
 </template>
@@ -32,8 +35,8 @@
 export default {
   data () {
     return {
-      maxh: null
-      // multipleSelection: []
+      maxh: null,
+      currentPage: 1
     }
   },
   props: {
@@ -45,6 +48,10 @@ export default {
       type: Array,
       required: true
     },
+    pagination: {
+      type: Object,
+      required: true
+    }
   },
   created () {
     this.calculate()
@@ -67,12 +74,23 @@ export default {
       let hg = window.screen.height
       let mxh = hg - 400
       this.maxh = mxh
+    },
+    //分页大小设置
+    handleSizeChange (val) {
+      this.pagination.psize = val
+    },
+    //当前页跳转
+    handleCurrentChange (val) {
+      this.currentPage = val
     }
   }
 }
 </script>
-<style lang="scss">
-.el-pagination {
-  margin-top: 10px;
+<style lang="scss" scoped>
+.table {
+  margin: 10px 0;
+  .el-pagination {
+    margin-top: 10px;
+  }
 }
 </style>

@@ -7,9 +7,9 @@
                     effect="dark"
                     :content="tipText"
                     placement="right">
-          <img class="icon"
-               :src="vicon"
-               @click="changeSide" />
+          <i class="icon"
+             :class="vicon"
+             @click="changeSide"></i>
         </el-tooltip>
       </el-col>
       <el-col :span="2"
@@ -18,7 +18,7 @@
         <el-badge :value="12"
                   style="cursor:pointer"
                   class="item">
-          <i class="iconfont iconxiaoxi"></i>
+          <i class="iconfont iconxiaoxi hicon"></i>
         </el-badge>
       </el-col>
       <el-col :span="2"
@@ -27,7 +27,7 @@
                      style="cursor:pointer"
                      placement="bottom">
           <span class="el-dropdown-link">
-            <i class="iconfont iconxiugaitouxiang"></i>
+            <i class="iconfont iconxiugaitouxiang hicon"></i>
           </span>
           <el-dropdown-menu slot="dropdown">
             <el-dropdown-item>查看个人信息</el-dropdown-item>
@@ -64,15 +64,18 @@ export default {
 }
 </script>
 <style lang="scss" scope>
+.hicon {
+  color: #fff;
+  font-size: 18px;
+}
 .header {
   .img-col {
     text-align: left;
     padding-left: 5px;
     cursor: pointer;
     .icon {
-      height: 20px;
-      width: 20px;
-      text-align: left;
+      font-size: 20px;
+      color: #fff;
     }
   }
   .el-badge__content.is-fixed {

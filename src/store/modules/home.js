@@ -2,7 +2,7 @@ export default {
   state: {
     show: true,
     isCollapse: false,
-    icon: '/images/hide.png',
+    icon: 'iconfont iconshouqi',
     text: 'Api管理系统',
     tipText: '收缩菜单',
     tabs: [],
@@ -15,12 +15,12 @@ export default {
       state.show = state.show ? false : true
       if (state.show) {
         state.isCollapse = false
-        state.icon = '/images/hide.png'
+        state.icon = 'iconfont iconshouqi'
         state.text = 'Api管理系统'
         state.tipText = '收缩菜单'
       } else {
         state.isCollapse = true
-        state.icon = '/images/show.png'
+        state.icon = 'iconfont iconzhankai1'
         state.text = 'Api'
         state.tipText = '展开菜单'
       }
