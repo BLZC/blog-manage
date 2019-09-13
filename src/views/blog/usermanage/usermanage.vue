@@ -132,6 +132,7 @@ export default {
       this.$post('/getusers', {}).then(res => {
         if (res.status) {
           this.tableData = res.result;
+          this.pagination.total = res.result.length;
         }
       })
     },

@@ -9,11 +9,9 @@
         </el-header>
         <Tabs></Tabs>
         <el-main>
-          <!-- <el-scrollbar> -->
-          <transition name="el-zoom-in-center">
+          <el-collapse-transition>
             <router-view />
-          </transition>
-          <!-- </el-scrollbar> -->
+          </el-collapse-transition>
         </el-main>
         <el-footer>
           <Foot></Foot>
