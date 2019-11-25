@@ -1,20 +1,25 @@
 <template>
   <div class="home">
-    <el-container>
-      <Side></Side>
+    <el-container class="outcontainer">
+      <sidebar></sidebar>
       <el-container>
         <el-header>
-
-          <Head></Head>
+          <basic-header></basic-header>
         </el-header>
-        <Tabs></Tabs>
+        <tags></tags>
         <el-main>
-          <el-collapse-transition>
-            <router-view />
-          </el-collapse-transition>
+          <el-scrollbar wrap-class="scrollbar-wrapper">
+            <el-collapse-transition>
+              <el-card class="box-card">
+                <keep-alive :include="Tags">
+                  <router-view />
+                </keep-alive>
+              </el-card>
+            </el-collapse-transition>
+          </el-scrollbar>
         </el-main>
         <el-footer>
-          <Foot></Foot>
+          <basic-footer></basic-footer>
         </el-footer>
       </el-container>
     </el-container>
@@ -22,58 +27,45 @@
 </template>
 
 <script>
-import Head from './layout/header'
-import Side from './layout/side'
-import Foot from './layout/footer'
-import Tabs from './layout/tabs'
 export default {
-  name: 'home',
   data () {
-    return {
-
-    };
+    return {};
   },
-  components: {
-    Head,
-    Side,
-    Foot,
-    Tabs
-
-  },
-  methods: {
-
+  computed: {
+    Tags () {
+      return this.$store.state.home.taglist;
+    }
   }
 };
 </script>
-<style scoped lang="scss">
+<style lang="scss" scoped>
 .home {
   height: 100vh;
-  background-image: url('../../public/images/main.jpg');
-  .el-container {
+  background: {
+    image: url('http://img95.699pic.com/photo/40009/2587.jpg_wh300.jpg');
+    size: 100% 100%;
+  }
+  .outcontainer {
     height: 100%;
+    margin-right: 20px;
     .el-container {
       .el-header,
       .el-footer {
-        padding-left: 0 !important;
-        background-color: transparent;
-        color: #333;
-        text-align: center;
+        background: transparent;
         line-height: 60px;
       }
       .el-footer {
-        background-color: #f2f6fc;
+        color: #fff;
         height: 40px !important;
         line-height: 40px;
       }
-      .tabs {
+      .tags {
         width: 100%;
         height: 35px;
-        background-color: transparent;
+        background: transparent;
       }
       .el-main {
-        background-color: #fff;
-        color: #333;
-        text-align: center;
+        background: #f0f0f0;
         padding: 15px 20px 5px;
       }
     }

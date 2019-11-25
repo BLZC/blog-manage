@@ -1,63 +1,70 @@
-# 个人信息
+## 基于 Vue+Element 实现的后台管理系统搭建模板
 
-- 刘兆财/男/1997
-- 本科/南京邮电大学软件工程系
-- 工作年限：1 年
-- 技术博客：https://www.cnblogs.com/lzcblog/
-- Github： https://github.com/BLZC
-- 期望职位：前端开发工程师
+## 数据采用 [fastmock](https://www.fastmock.site/#/) 模拟数据
 
-# 工作经历
+### 目前实现的主要功能：
 
-### 公司：苏州博纳讯动软件有限公司
+1. 简单的登录功能
+2. Header 头部组件
+3. Side 菜单，可伸缩
+4. 内置标签
+5. 简易的表格样式，包括增删改查等基本功能
+6. dialog 的封装
+7. table 的封装
 
-### 部门：前端开发部
+### 本文主要介绍内置标签的实现：
 
-### 时间： 2018/12 - 至今
+#### 内置标签主要基于 Vuex 实现状态管理和本地缓存结合实现
 
-### 主要职责： 参与公司产品的前端研发工作，并配合 UI 和后端工程师完成公司产品的研发
+#### 首先结合浏览器标签的效果主要实现的功能有
 
-# 技能清单
+1. 点击菜单栏后判断当前页面是否已经打开 ？ 跳转到已打开的标签 ： 新增一个标签
+2. 标签可以删除，还应该包含删除所有标签和删除其他标签的功能
+3. 同时显示的标签有数量限制，数量超过后会给予提示
+4. 刷新后，当前页面及对应标签应该保留
+5. 刚进入系统时应该显示首页标签，当所有标签关闭后应该跳转到首页
+6. 标签之间切换时，如果当前标签没有关闭，则应该保留用户在当前标签的操作（使用 Vue 自带的 keep-alive 实现）
 
-- 熟练掌握 javascript，css 等前端开发语言
-- 熟练掌握 Vue，有相应的项目经验，研究过源码
-- 熟悉使用 node 开发服务端
-- 熟悉 webpack，git，nginx 等常用的开发工具
-- 熟悉微信小程序开发
-- 熟悉 React，jquery 等框架
+#### 新增标签具体实现如下
 
-# 项目经历
+```
+    //添加tab
+    addTabs(state, value) {
+      let JS = JSON.stringify
+      //将当前页面存在session中，解决vuex数据刷新后初始化的问题
+      sessionStorage.setItem('currentTag', JS(value))
+      //要打开的页面标签是否已经存在 ？ 跳转 ： 加入数组
+      if (JS(state.tabs).indexOf(JS(value)) < 0) {
+        state.tabs.push(value)
+      } else {
+        state.selectTag = value
+      }
+      //判断是否超过最多同时打开的标签数目
+      if (state.tabs.length < state.tabNum) {
+        state.canAdd = true
+      } else {
+        state.canAdd = false
+      }
+    }
 
-### CMP（云管理平台）
+```
 
-1. 职责：在本项目中自己主要负责前端开发工作，配合后端完成项目功能需求
-2. 完成工作：完成模拟登陆，表单导出，服务器管理等功能
-3. 项目成果：目前本项目已作为公司的一个核心产品，作为交付项目开发的模板
+#### 删除标签具体实现如下
 
-### 博云内部管理工具
+```
+    //删除tab
+    closeTab(state, value) {
+        //判断要删除的标签是否存在
+      if (state.tabs.indexOf(value) > -1) {
+        state.tabs.splice(state.tabs.indexOf(value), 1)
+        state.canAdd = true
+        //如果当前打开的标签只有一个，则删除当前标签后应该跳转到首页标签
+        if (!state.tabs.length) {
+          state.tabs.push(state.tabIndex)
+        }
+      }
+    }
 
-1. 职责：在本项目中自己主要负责前端开发工作，配合后端完成项目功能需求
-2. 完成工作：封装开发了内部标签栏，完成权限控制模块，完成报工流程，基本满足各部门的报工需求
-3. 项目成果：目前本项目已经在公司内部使用，为公司员工报工，公司项目管理等提供服务
+```
 
-# 开源项目和作品
-
-## 开源项目
-
-### 仿小米有品（小程序）
-
-- [github 地址：https://github.com/BLZC/Millet](https://github.com/BLZC/Millet)
-
-1. 仿小米有品微信小程序，由自己独立设计开发
-2. 初步完成了包括首页/商品详情页/分类页/购物车页/个人信息页等页面的开发
-3. 项目整体布局合理，样式精美，交互准确无误
-
-### vue+element 搭建后台管理系统模板
-
-- [github 地址：https://github.com/BLZC/vue-element-template](https://github.com/BLZC/vue-element-template)
-
-1. 项目开发基于 vue 全家桶+element，旨在为一些中小项目提供一个项目搭建的模板，提升开发效率
-2. 基于组件化开发的原理，将左侧菜单栏/内部标签栏/表格/表单/页面布局等基本组件进行了封装，减少了后续开发工作量
-3. 项目大量使用包括 es6，element 样式调整，组件封装，模块化开发等高级用法，有利于开发者熟悉 vue+element 中一些高级用法，
-   避免代码冗余和结构错乱
-4. 代码结构明确，注释准确，为初学者提供一个优良的学习模板
+### 其他具体实现可以参考[github 项目源码](https://github.com/BLZC/vue-template)

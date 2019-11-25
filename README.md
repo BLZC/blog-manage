@@ -1,35 +1,21 @@
-# vue-template
+### 登录和用户信息采用[fastmock](https://www.fastmock.site/#/)
 
-## Project setup
+## 目前实现的功能有
 
-```
-yarn install
-```
+1. 左侧菜单缩放
+2. 内部标签
+3. Table 封装，采用按需请求数据，基本的增删改查示例
+4. Axios 封装
+5. 嵌入编辑器
+6. 嵌入视频播放插件
+7. 路由导航守卫
+8. 消息模块
+9. schart 图表
+10. 全屏效果
+11. vue组件拖拽
 
-### Compiles and hot-reloads for development
+### 项目运行
 
-```
-yarn run serve
-```
-
-### Compiles and minifies for production
-
-```
-yarn run build
-```
-
-### Run your tests
-
-```
-yarn run test
-```
-
-### Lints and fixes files
-
-```
-yarn run lint
-```
-
-### Customize configuration
-
-See [Configuration Reference](https://cli.vuejs.org/config/).
+1. git clone 项目地址 或者直接下载压缩包
+1. npm install 下载依赖包
+1. npm run serve 运行项目

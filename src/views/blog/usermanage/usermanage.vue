@@ -42,19 +42,20 @@
   </div>
 </template>
 <script>
+import axios from 'axios'
 //topbtns component
 import TopBtn from '../../../components/topbtns'
 //Table component
 import Table from '../../../components/table/index'
 //Dialog component
-import AddForm from './addForm'
+import AddForm from './AddForm'
 export default {
   data () {
     return {
       childForm: {} /* data in dialog -->form  */,
       pagination: {
         psize: 10,
-        total: 111
+        total: null
       } /* 分页设置 */,
       Slotbuttons: [
         {
@@ -85,33 +86,27 @@ export default {
       tbHeader: [
         {
           id: 1,
-          prop: 'name',
+          prop: 'username',
           label: '姓名',
           width: '180'
         },
         {
           id: 2,
-          prop: 'birth',
-          label: '出生日期',
+          prop: 'account',
+          label: '账号',
           width: '180'
         },
         {
           id: 3,
-          prop: 'age',
-          label: '年龄',
+          prop: 'password',
+          label: '密码',
           width: '120'
         },
 
         {
           id: 4,
-          prop: 'sex',
-          label: '性别',
-          width: '120'
-        },
-        {
-          id: 5,
-          prop: 'address',
-          label: '地址'
+          prop: 'touxiang',
+          label: '头像'
         }
       ] /* Table Header config */,
       tableData: [] /* table data */
@@ -129,10 +124,10 @@ export default {
   methods: {
     //get user list
     getUsers () {
-      this.$post('/getusers', {}).then(res => {
-        if (res.status) {
-          this.tableData = res.result;
-          this.pagination.total = res.result.length;
+      this.$get('/users').then(res => {
+        if (res.code) {
+          this.tableData = res.data;
+          this.pagination.total = res.data.length;
         }
       })
     },
@@ -173,14 +168,17 @@ export default {
     },
     //delete one user
     Deleteone (id, url) {
-      this.$confirm('此操作将永久删除该文件, 是否继续?', '提示', {
+      this.$confirm('是否确认删除该用户?', '提示', {
         confirmButtonText: '确定',
         cancelButtonText: '取消',
         type: 'warning'
       }).then(() => {
         this.$post(url, { ids: id.id }).then(res => {
           if (res.status) {
-            this.$LZCMessage(res.message, 'success')
+            this.$notify({
+              type: 'success',
+              message: '删除成功！'
+            })
             this.getUsers()
           }
         })

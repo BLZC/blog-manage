@@ -1,0 +1,123 @@
+#app {
+  font-family: 'Avenir', Helvetica, Arial, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-align: center;
+  color: #333;
+  font-size: 14px;
+}
+
+.el-header {
+  padding: 0px !important;
+}
+/**
+* 表头样式
+*/
+.el-table th {
+  background: rgb(47, 79, 79) !important;
+  color: #fff;
+}
+.el-tabs__header {
+  margin-bottom: 0px !important;
+}
+
+.el-tab-pane {
+  text-align: left;
+}
+
+/**
+* 抽屉样式
+*/
+.el-drawer {
+  background: rgba(0, 0, 0) !important;
+}
+.el-drawer__header {
+  color: #fff !important;
+  font-weight: 550;
+}
+.el-drawer .el-card {
+  background: rgba(0, 0, 0) !important;
+  color: #fff;
+  border: none !important;
+}
+
+/**
+* 视频播放样式
+*/
+.video-js {
+  width: 98%;
+  height: 380px;
+  margin: 20px 0 0;
+}
+.vjs-poster {
+  background-size: 80% 80% !important;
+}
+/**
+* 可点击提示
+*/
+.show-pointer {
+  cursor: pointer;
+}
+
+/**
+* 图标样式
+*/
+.hicon {
+  color: #fff;
+  font-size: 24px;
+}
+
+/**
+* dropdown和内容之间的距离
+*/
+.dropdown-top {
+  top: 40px !important;
+}
+
+/**
+*消息数目提示
+*/
+.el-badge__content.is-fixed {
+  top: 14px !important;
+}
+
+/**
+* side样式
+*/
+.hideClass {
+  width: 64px !important;
+  overflow: hidden;
+}
+.el-submenu__title:hover {
+  background: rgba(0, 0, 0, 0.3) !important;
+}
+
+a {
+  font-size: 16px !important;
+  color: blue;
+  text-decoration: none;
+}
+/* 滚动条样式 */
+.scrollbar-wrapper {
+  overflow-x: hidden !important;
+  margin-right: -25px !important;
+}
+
+.el-scrollbar__bar.is-vertical {
+  right: 0px;
+  width: 0 !important;
+}
+
+.el-scrollbar {
+  height: 100%;
+}
+
+/* 左侧菜单icon样式 */
+.el-submenu__title i,
+.el-menu-item i {
+  color: #fff !important;
+}
+
+.el-menu--vertical {
+  display: none;
+}

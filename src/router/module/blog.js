@@ -5,12 +5,20 @@ let blog = [
   {
     path: '/userManage',
     name: 'userManage',
-    component: () => import('../../views/blog/usermanage/usermanage.vue')
+    meta: { title: '用户管理' },
+    component: () => import('../../views/blog/UserManage/UserManage')
   },
   {
     path: '/articleManage',
     name: 'articleManage',
-    component: () => import('../../views/blog/articleManage/articleManage.vue')
+    meta: { title: '文章管理' },
+    component: () => import('../../views/blog/ArticleManage/ArticleManage')
+  },
+  {
+    path: '/edit',
+    name: 'edit',
+    meta: { title: '文章编辑' },
+    component: () => import('../../views/blog/ArticleManage/Edit')
   }
-]
-export { blog }
+];
+export { blog };

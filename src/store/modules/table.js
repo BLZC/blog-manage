@@ -4,10 +4,10 @@ export default {
   },
   getters: {},
   mutations: {
-    //table中选择框状态改变
-    handlemultipleSelection(state, value) {
-      state.multipleSelection = value
+    // table中选择框状态改变
+    handlemultipleSelection (state, value) {
+      state.multipleSelection = value;
     }
   },
   actions: {}
-}
+};

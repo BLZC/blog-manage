@@ -50,8 +50,9 @@
   </el-dialog>
 </template>
 <script>
-import { usr } from '../../../validate';
+import { usr } from '../../validate';
 export default {
+  name: 'Umform',
   data () {
     return {
       usr /* 校验规则 */
@@ -72,26 +73,34 @@ export default {
     submitForm (formName) {
       this.$refs[formName].validate((valid) => {
         if (valid) {
-          let url = '';
-          // 新增提交
-          if (this.dialog.type === 1) {
-            url = '/apiusersadd';
-          }
-          // 编辑提交
-          if (this.dialog.type === 2) {
-            url = '/apiusersedit';
-          }
-          this.$post(url, this.data).then(res => {
-            if (res.status) {
-              this.$LZCMessage(res.message, 'success');
-              this.dialog.show = false;
-              /**
-               * 使用this.$parent 调用父组件getUsers方法，实现父组件数据刷新
-               * 缺点： 无法实现组件复用
-               */
-              this.$parent.getUsers();
-            }
-          });
+          /**
+           * 以下注释部分为基于服务器的渲染
+           */
+          //     let url = ''
+          //     //新增提交
+          //     if (this.dialog.type === 1) {
+          //       url = '/apiusersadd'
+          //     }
+          //     //编辑提交
+          //     if (this.dialog.type === 2) {
+          //       url = '/apiusersedit'
+          //     }
+          //     this.$post(url, this.data).then(res => {
+          //       if (res.status) {
+          //         this.$LZCMessage(res.message, 'success')
+          //         this.dialog.show = false;
+          //         /**
+          //          * 使用this.$parent 调用父组件getUsers方法，实现父组件数据刷新
+          //          * 缺点： 无法实现组件复用
+          //          */
+          //     this.$parent.getUsers()
+          //   }
+          // })
+          /**
+           * 前端mock
+           */
+          this.$LZCMessage('新增/编辑成功', 'success');
+          this.dialog.show = false;
         } else {
           return false;
         }

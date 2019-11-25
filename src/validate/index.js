@@ -1,3 +1,3 @@
-import usr from './modules/usermanage'
+import usr from './modules/usermanage';
 
-export { usr }
+export { usr };

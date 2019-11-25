@@ -2,16 +2,22 @@
   *修改element ui 默认样式
 */
 
-.el-button {
+.topbtn .el-button {
   padding: 9px 15px !important;
 }
-.el-button--text {
+.topbtn .el-button--text {
   padding: 9px 10px !important;
   margin-left: 2px !important;
+  font-size: 13px !important;
+}
+
+.el-button--text .el-icon-delete,
+.el-button--text .el-icon-delete + span {
+  color: red;
 }
 .el-dialog__header {
   text-align: left;
-  background-color: #2f4f4f;
+  background: #2f4f4f;
 }
 .el-dialog__title {
   color: #fff !important;
@@ -23,9 +29,10 @@
 .dialog-footer {
   text-align: center;
 }
-.el-input__inner {
-  height: 32px !important;
-  line-height: 32px !important;
+.topbtn .el-input__inner,
+.el-dialog .el-input__inner {
+  height: 34px !important;
+  line-height: 34px !important;
 }
 
 .el-dialog {
