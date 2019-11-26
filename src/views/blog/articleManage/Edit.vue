@@ -1,5 +1,6 @@
 <template>
   <div class="markdown-edit">
+    <iframe name="iframeId" style="display:none"></iframe>
     <el-page-header @back="goBack" :content="headerContent">
     </el-page-header>
     <el-row class="mark-header">
@@ -20,12 +21,17 @@
           </el-option>
         </el-select>
       </el-col>
-      <el-col :span="2"
-              :offset="4">
+      <el-col :span="4"
+              :offset="2">
         <el-button type="success"
                   icon="el-icon-s-promotion"
                   @click="Release"
                   size="small">发布</el-button>
+        <el-button type="info"
+                  icon="el-icon-printer"
+                  :loading="doenLoading"
+                  @click="Down"
+                  size="small">导出为pdf</el-button>
       </el-col>
     </el-row>
     <mavon-editor ref="editor"
@@ -45,7 +51,8 @@ export default {
       doc: '' /* 文章内容 */,
       classification: [] /* 所有分类 */,
       isEdit: false /* 是否编辑 */,
-      headerContent: '发表文章'
+      headerContent: '发表文章',
+      doenLoading: false
     };
   },
   components: { mavonEditor },
@@ -62,11 +69,8 @@ export default {
     // 判断是否是编辑页面
     judgeEdit () {
       let _id = null, _type = null;
-      if (this.$route.query) {
-        _id = this.$route.query.id;
-        _type = this.$route.query.type;
-      }
-      if (_type && _type === 'edit') {
+      if (this.$cookies.get('isedit')) {
+        _id = this.$cookies.get('isedit');
         this.isEdit = true;
         this.headerContent = '编辑文章';
         this.articleId = _id;
@@ -106,6 +110,22 @@ export default {
       } else {
         this.$LZCMessage('题目和分类不能为空', 'error');
       }
+    },
+    // 导出为pdf
+    Down () {
+      this.doenLoading = true;
+      let _markdownMd = this.doc;
+      let _articleName = this.title;
+      this.$post('/transformPdf', { markdownMd: _markdownMd, articleName: _articleName }).then(res => {
+        this.$notify.info({ message: '正在转换为pdf......' });
+        if (res.code) {
+          setTimeout(() => {
+            this.doenLoading = false;
+            this.$LZCMessage('转化成功！正在下载......', 'success');
+            window.location.href = '/api/downpdf/' + res.articleName + '.pdf';
+          }, 8000);
+        }
+      });
     }
   }
 };

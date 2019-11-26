@@ -130,19 +130,15 @@ export default {
     },
     // add user
     Add () {
+      this.$cookies.remove('isedit');
       this.$router.push({
         path: '/edit'
       });
     },
     // edit user
     Edit (id, url) {
-      this.$router.push({
-        path: '/edit',
-        query: {
-          type: 'edit',
-          id: id
-        }
-      });
+      this.$cookies.set('isedit', id);
+      this.$router.push('/edit');
     },
     // handle Function
     Handle (row, type, url) {

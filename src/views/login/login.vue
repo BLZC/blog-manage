@@ -2,7 +2,7 @@
   <div class="login">
     <div class="box">
       <div class="title">
-        Vue项目模板
+        IT之家管理系统
       </div>
       <div class="account">
         <el-input placeholder="请输入账号"

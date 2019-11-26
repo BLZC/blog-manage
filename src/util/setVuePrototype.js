@@ -1,9 +1,11 @@
 import Vue from 'vue';
+import VueCookies from 'vue-cookies';
 import { get, post, del, put } from '../request/http';
 import { getCookie, setCookie, deleteCookie } from './cookieConfig';
 import { getLocalStorage, setLocalStorage, deleteLocalStorage, clearAllLocalStorage } from './localStorageConfig';
 import { LZCMessage } from '../common';
 
+Vue.use(VueCookies);
 Vue.prototype.$get = get;
 Vue.prototype.$post = post;
 Vue.prototype.$delete = del;

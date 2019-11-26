@@ -1,11 +1,12 @@
-const { setLocalStorage, getLocalStorage, deleteLocalStorage } = require('../../util/localStorageConfig');
+import { setLocalStorage, getLocalStorage, deleteLocalStorage } from '../../util/localStorageConfig';
+import config from '../../util/tagsConfig.js';
 const setls = setLocalStorage, getls = getLocalStorage, rmls = deleteLocalStorage;
 export default {
   state: {
     show: true /* Side展开状态 */,
     isCollapse: false /* Side没有收缩 */,
     icon: 'iconfont iconshouqi' /* 伸展图标 */,
-    text: 'IT之家后台管理' /* 标题 */,
+    text: 'IT之家管理系统' /* 标题 */,
     tipText: '收缩菜单' /* 提示 */,
     tabIndex: {
       name: 'index',
@@ -13,11 +14,9 @@ export default {
       path: '/index'
     } /* 首页标签 */,
     taglist: [] /* kekeep-alive状态保存 */,
-    tags: [JSON.parse(getls('currentTag'))] /* 标签数组 */,
+    tags: config.tags /* 标签数组 */,
     tabNum: null /* 同时可打开的标签数目 */,
-    selectTag: JSON.parse(
-      getls('currentTag')
-    ) /* 当前选中的标签 */,
+    selectTag: config.selectTag /* 当前选中的标签 */,
     canAdd: true /* 是否可以继续打开标签 */
   },
   mutations: {
@@ -27,7 +26,7 @@ export default {
       if (state.show) {
         state.isCollapse = false;
         state.icon = 'iconfont iconshouqi';
-        state.text = 'IT之家后台管理';
+        state.text = 'IT之家管理系统';
         state.tipText = '收缩菜单';
       } else {
         state.isCollapse = true;
