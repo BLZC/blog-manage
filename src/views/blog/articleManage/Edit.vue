@@ -1,6 +1,5 @@
 <template>
   <div class="markdown-edit">
-    <iframe name="iframeId" style="display:none"></iframe>
     <el-page-header @back="goBack" :content="headerContent">
     </el-page-header>
     <el-row class="mark-header">
