@@ -4,6 +4,8 @@ import router from './router';
 import store from './store';
 import 'babel-polyfill';
 import ElementUI from 'element-ui';
+import VueSocketIO from 'vue-socket.io';
+import socketio from 'socket.io-client';
 // 全局注册组件
 import './components/global';
 // Vue富文本编辑器
@@ -16,6 +18,10 @@ import 'element-ui/lib/theme-chalk/index.css';
 Vue.config.productionTip = false;
 
 Vue.use(ElementUI);
+Vue.use(new VueSocketIO({
+  debug: true,
+  connection: 'http://49.235.8.149:9090'
+}));
 Vue.use(VueQuillEditor /* { default global options } */);
 new Vue({
   router,

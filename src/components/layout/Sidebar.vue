@@ -112,9 +112,24 @@ export default {
           ]
         },
         {
+          id: 9,
+          title: '在线聊天',
+          path: '5',
+          icon: 'iconfont iconliaotian',
+          children: [
+            {
+              id: 10,
+              title: '在线聊天',
+              path: '/chat',
+              name: 'chat',
+              icon: ''
+            }
+          ]
+        },
+        {
           id: 11,
           title: '视频插件',
-          path: '5',
+          path: '6',
           icon: 'iconfont iconshipin',
           children: [
             {

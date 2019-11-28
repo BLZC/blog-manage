@@ -49,6 +49,13 @@ let router = new Router({
           name: 'videoPlay',
           meta: { title: '视频播放' },
           component: () => import('../views/video/VideoPlay')
+        },
+        // socket聊天
+        {
+          path: '/chat',
+          name: 'chat',
+          meta: { title: '在线聊天' },
+          component: () => import('../views/chat/Socket')
         }
       ]
     },

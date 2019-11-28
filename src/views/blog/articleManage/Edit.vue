@@ -34,6 +34,7 @@
       </el-col>
     </el-row>
     <mavon-editor ref="editor"
+                  @change="cacheContent"
                   v-model="doc"> </mavon-editor>
   </div>
 </template>
@@ -56,9 +57,10 @@ export default {
   },
   components: { mavonEditor },
   created () {
-    this.judgeEdit();
+    this.judgeType();
     this.getclassification();
   },
+  mounted () {},
   methods: {
     // 返回文章管理页
     goBack () {
@@ -66,7 +68,7 @@ export default {
     },
 
     // 判断是否是编辑页面
-    judgeEdit () {
+    judgeType () {
       let _id = null, _type = null;
       if (this.$cookies.get('isedit')) {
         _id = this.$cookies.get('isedit');
@@ -78,7 +80,27 @@ export default {
           this.belong = res.data.belong;
           this.doc = res.data.content;
         });
+      } else {
+        this.$confirm('上次您有保存后未发表的文件，是否恢复？', '提示', {
+          confirmButtonText: '确定',
+          cancelButtonText: '取消',
+          type: 'warning'
+        }).then(() => {
+          this.doc = this.$getls('blogContent');
+          this.title = this.$getls('blogTitle');
+          this.belong = this.$getls('blogBelong');
+        }).catch(() => {
+          this.$deletels('blogContent');
+          this.$deletels('blogTitle');
+          this.$deletels('blogBelong');
+        });
       }
+    },
+    // 文章内容缓存
+    cacheContent () {
+      this.$setls('blogTitle', this.title);
+      this.$setls('blogBelong', this.belong);
+      this.$setls('blogContent', this.doc);
     },
     // 获取文章分类
     getclassification () {
