@@ -21,7 +21,8 @@
       </el-table-column>
       <slot></slot>
     </el-table>
-    <el-pagination :page-sizes="[10, 20, 50, 100]"
+    <el-pagination v-if="pagination"
+                   :page-sizes="[10, 20, 50, 100]"
                    :page-size="pagination.psize"
                    layout="total, sizes, prev, pager, next, jumper"
                    @size-change="handleSizeChange"
@@ -37,7 +38,7 @@ export default {
     return {
       maxh: null,
       currentPage: 1
-    }
+    };
   },
   props: {
     Tabledata: {
@@ -49,42 +50,41 @@ export default {
       required: true
     },
     pagination: {
-      type: Object,
-      required: true
+      type: Object
     }
   },
   created () {
-    this.calculate()
+    this.calculate();
   },
   methods: {
-    //头部样式
+    // 头部样式
     SETHEADER ({ rowIndex }) {
       if (rowIndex == 0) {
-        return 'background:	#2F4F4F; color: #fff;'
+        return 'background:#2F4F4F; color: #fff;';
       } else {
-        return ''
+        return '';
       }
     },
-    //选择框状态改变
+    // 选择框状态改变
     handleSelectionChange (val) {
-      this.$store.commit('handlemultipleSelection', val)
+      this.$store.commit('handlemultipleSelection', val);
     },
-    //计算max-height
+    // 计算max-height
     calculate () {
-      let hg = window.screen.height
-      let mxh = hg - 400
-      this.maxh = mxh
+      let hg = window.screen.height;
+      let mxh = hg - 400;
+      this.maxh = mxh;
     },
-    //分页大小设置
+    // 分页大小设置
     handleSizeChange (val) {
-      this.pagination.psize = val
+      this.pagination.psize = val;
     },
-    //当前页跳转
+    // 当前页跳转
     handleCurrentChange (val) {
-      this.currentPage = val
+      this.currentPage = val;
     }
   }
-}
+};
 </script>
 <style lang="scss" scoped>
 .table {

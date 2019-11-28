@@ -16,6 +16,14 @@
               class="message">
         <div class="top-icon">
           <el-tooltip effect="dark"
+                      content="音乐"
+                      placement="bottom">
+            <i class="iconfont hicon iconerji"
+               @click="playMusic"></i>
+          </el-tooltip>
+        </div>
+        <div class="top-icon">
+          <el-tooltip effect="dark"
                       :content="fullText"
                       placement="bottom">
             <i :class="fullClass"
@@ -75,6 +83,10 @@ export default {
     // 改变Side状态
     changeSide () {
       this.$store.commit('switchShow');
+    },
+    // 音乐播放
+    playMusic () {
+      
     },
     // 下拉菜单点击事件
     handClick (command) {

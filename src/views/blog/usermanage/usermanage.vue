@@ -42,13 +42,13 @@
   </div>
 </template>
 <script>
-import axios from 'axios'
-//topbtns component
-import TopBtn from '../../../components/topbtns'
-//Table component
-import Table from '../../../components/table/index'
-//Dialog component
-import AddForm from './AddForm'
+import axios from 'axios';
+// topbtns component
+import TopBtn from '../../../components/topbtns';
+// Table component
+import Table from '../../../components/table/index';
+// Dialog component
+import AddForm from './AddForm';
 export default {
   data () {
     return {
@@ -110,7 +110,7 @@ export default {
         }
       ] /* Table Header config */,
       tableData: [] /* table data */
-    }
+    };
   },
   components: {
     Table,
@@ -118,23 +118,23 @@ export default {
     TopBtn
   },
   mounted () {
-    //初始化数据
-    this.getUsers()
+    // 初始化数据
+    this.getUsers();
   },
   methods: {
-    //get user list
+    // get user list
     getUsers () {
       this.$get('/users').then(res => {
         if (res.code) {
           this.tableData = res.data;
           this.pagination.total = res.data.length;
         }
-      })
+      });
     },
     // add user
     Add () {
       this.dialog.show = true;
-      this.dialog.title = "新增";
+      this.dialog.title = '新增';
       this.dialog.type = 1;
       this.childForm = {
         name: '',
@@ -142,20 +142,20 @@ export default {
         sex: null,
         birth: '',
         address: ''
-      }
+      };
     },
-    //edit user
+    // edit user
     Edit (id, url) {
-      this.dialog.title = "编辑";
+      this.dialog.title = '编辑';
       this.dialog.show = true;
       this.dialog.type = 2;
       this.$post(url, { id: id.id }).then(res => {
         if (res.status) {
-          this.childForm = res.result
+          this.childForm = res.result;
         }
-      })
+      });
     },
-    //handle Function
+    // handle Function
     Handle (id, type, url) {
       switch (type) {
         case 1:
@@ -166,7 +166,7 @@ export default {
           break;
       }
     },
-    //delete one user
+    // delete one user
     Deleteone (id, url) {
       this.$confirm('是否确认删除该用户?', '提示', {
         confirmButtonText: '确定',
@@ -178,10 +178,10 @@ export default {
             this.$notify({
               type: 'success',
               message: '删除成功！'
-            })
-            this.getUsers()
+            });
+            this.getUsers();
           }
-        })
+        });
       }).catch(() => {
         this.$message({
           type: 'info',
@@ -189,12 +189,12 @@ export default {
         });
       });
     },
-    //delete all user
+    // delete all user
     Deleteall () {
-      let ids = []
+      let ids = [];
       this.$store.state.table.multipleSelection.forEach(element => {
-        ids.push(element.id)
-      })
+        ids.push(element.id);
+      });
       this.$confirm('此操作将永久删除该文件, 是否继续?', '提示', {
         confirmButtonText: '确定',
         cancelButtonText: '取消',
@@ -202,10 +202,10 @@ export default {
       }).then(() => {
         this.$post('/apiusersdelete', { ids: ids }).then(res => {
           if (res.status) {
-            this.$LZCMessage(res.message, 'success')
-            this.getUsers()
+            this.$LZCMessage(res.message, 'success');
+            this.getUsers();
           }
-        })
+        });
       }).catch(() => {
         this.$message({
           type: 'info',
@@ -214,5 +214,5 @@ export default {
       });
     }
   }
-}
+};
 </script>

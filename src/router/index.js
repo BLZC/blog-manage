@@ -56,6 +56,13 @@ let router = new Router({
           name: 'chat',
           meta: { title: '在线聊天' },
           component: () => import('../views/chat/Socket')
+        },
+        // music音乐鉴赏
+        {
+          path: '/music',
+          name: 'music',
+          meta: { title: '音乐鉴赏' },
+          component: () => import('../views/chat/Music')
         }
       ]
     },

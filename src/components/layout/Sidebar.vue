@@ -123,6 +123,13 @@ export default {
               path: '/chat',
               name: 'chat',
               icon: ''
+            },
+            {
+              id: 13,
+              title: '音乐鉴赏',
+              path: '/music',
+              name: 'music',
+              icon: ''
             }
           ]
         },
