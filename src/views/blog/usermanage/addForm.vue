@@ -50,54 +50,54 @@
   </el-dialog>
 </template>
 <script>
-import { usr } from '../../../validate'
+import { usr } from '../../../validate';
 export default {
   name: 'Umform',
   data () {
     return {
       usr /* 校验规则 */
-    }
+    };
   },
   props: {
-    //dialog中form数据
+    // dialog中form数据
     data: {
       type: Object
     },
-    //dialog状态
+    // dialog状态
     dialog: {
       type: Object
     }
   },
   methods: {
-    //信息提交
+    // 信息提交
     submitForm (formName) {
       this.$refs[formName].validate((valid) => {
         if (valid) {
-          let url = ''
-          //新增提交
+          let url = '';
+          // 新增提交
           if (this.dialog.type === 1) {
-            url = '/apiusersadd'
+            url = '/apiusersadd';
           }
-          //编辑提交
+          // 编辑提交
           if (this.dialog.type === 2) {
-            url = '/apiusersedit'
+            url = '/apiusersedit';
           }
           this.$post(url, this.data).then(res => {
             if (res.status) {
-              this.$LZCMessage(res.message, 'success')
+              this.$LZCMessage(res.message, 'success');
               this.dialog.show = false;
               /**
                * 使用this.$parent 调用父组件getUsers方法，实现父组件数据刷新
                * 缺点： 无法实现组件复用
                */
-              this.$parent.getUsers()
+              this.$parent.getUsers();
             }
-          })
+          });
         } else {
           return false;
         }
       });
     }
   }
-}
+};
 </script>

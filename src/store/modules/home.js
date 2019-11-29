@@ -1,5 +1,5 @@
 import { setLocalStorage, getLocalStorage, deleteLocalStorage } from '../../util/localStorageConfig';
-import config from '../../util/tagsConfig.js';
+import { tagConfig } from '../../util/config.js';
 const setls = setLocalStorage, getls = getLocalStorage, rmls = deleteLocalStorage;
 export default {
   state: {
@@ -14,9 +14,9 @@ export default {
       path: '/index'
     } /* 首页标签 */,
     taglist: [] /* kekeep-alive状态保存 */,
-    tags: config.tags /* 标签数组 */,
+    tags: tagConfig.tags /* 标签数组 */,
     tabNum: null /* 同时可打开的标签数目 */,
-    selectTag: config.selectTag /* 当前选中的标签 */,
+    selectTag: tagConfig.selectTag /* 当前选中的标签 */,
     canAdd: true /* 是否可以继续打开标签 */
   },
   mutations: {

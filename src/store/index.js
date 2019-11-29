@@ -5,10 +5,12 @@ import vuex from 'vuex';
 import home from './modules/home';
 //  table中数据管理
 import table from './modules/table';
+import music from './modules/music';
 Vue.use(vuex);
 export default new vuex.Store({
   modules: {
     home,
-    table
+    table,
+    music
   }
 });

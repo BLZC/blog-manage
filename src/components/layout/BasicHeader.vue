@@ -11,16 +11,27 @@
              @click="changeSide"></i>
         </el-tooltip>
       </el-col>
-      <el-col :span="3"
-              :offset="18"
+      <el-col :span="5"
+              :offset="16"
               class="message">
         <div class="top-icon">
-          <el-tooltip effect="dark"
-                      content="音乐"
-                      placement="bottom">
-            <i class="iconfont hicon iconerji"
-               @click="playMusic"></i>
-          </el-tooltip>
+          <el-dropdown size="mini" @command="handClick">
+            <span class="el-dropdown-link">
+                <aplayer ref="aplayer"
+                        autoplay
+                        mini
+                        shuffle
+                        :list="musicList"
+                        :music="currentMusic"
+                />
+            </span>
+            <el-dropdown-menu slot="dropdown">
+              <!-- <el-dropdown-item>黄金糕</el-dropdown-item> -->
+              <el-dropdown-item command="m">
+                <el-link type="primary">更多...</el-link>
+              </el-dropdown-item>
+            </el-dropdown-menu>
+          </el-dropdown>
         </div>
         <div class="top-icon">
           <el-tooltip effect="dark"
@@ -61,6 +72,8 @@
   </div>
 </template>
 <script>
+import Aplayer from 'vue-aplayer';
+Aplayer.disableVersionBadge = true;
 export default {
   data () {
     return {
@@ -77,16 +90,51 @@ export default {
     /* 菜单栏标题 */
     tipText () {
       return this.$store.state.home.tipText;
+    },
+    musicList () {
+      let _curMusic = {};
+      if (this.$store.state.music.musicList) {
+        _curMusic = this.$store.state.music.musicList;
+      }
+      return _curMusic;
+    },
+    currentMusic () {
+      return this.$store.state.music.currentMusic;
     }
+  },
+  watch: {
+    // 换歌后自动播放
+    '$store.state.music.currentMusic': function () {
+      this.$nextTick(() => {
+        this.$refs.aplayer.play();
+      });
+    }
+  },
+  created () {
+    this.getAllMusic();
+  },
+  components: {
+    Aplayer
   },
   methods: {
     // 改变Side状态
     changeSide () {
       this.$store.commit('switchShow');
     },
-    // 音乐播放
-    playMusic () {
-      
+    // getAllMusic
+    getAllMusic () {
+      this.$get('/music').then(res => {
+        this.$store.commit('setAllMusic', res.data);
+      }).then(() => {
+        this.getCurrentMusic();
+      });
+    },
+    getCurrentMusic () {
+      this.$store.commit('setCurrentMusic');
+    },
+    // go 音乐鉴赏
+    setMusic () {
+      this.$router.push('/music');
     },
     // 下拉菜单点击事件
     handClick (command) {
@@ -98,6 +146,10 @@ export default {
         case 'b':
           // 登出
           this.logOut();
+          break;
+        case 'm':
+          // 歌曲设置
+          this.setMusic();
           break;
         default:
           break;
@@ -151,7 +203,15 @@ export default {
   }
 };
 </script>
-<style lang="scss" scoped>
+<style lang="scss">
+@keyframes translateBox
+{
+0%   {transform: rotate(0deg)}
+25%  {transform: rotate(90deg)}
+50%  {transform: rotate(180deg)}
+75%  {transform: rotate(270deg)}
+100%  {transform: rotate(360deg)}
+}
 .header {
   .img-col {
     text-align: left;
@@ -160,6 +220,25 @@ export default {
   .top-icon {
     padding: 0 10px;
     height: 60px;
+    .aplayer {
+      width: 40px;
+      height: 40px;
+      margin-top: 10px;
+      border-radius: 50%;
+      overflow: hidden;
+      background-color: transparent;
+      .aplayer-body .aplayer-pic {
+        width: 30px;
+        height: 30px;
+        border-radius: 50%;
+        margin: 5px;
+        background-color: transparent;
+        animation: translateBox 2s linear infinite;
+        .aplayer-button  {
+          display: none;
+        }
+      }
+    }
   }
   .message {
     display: flex;
