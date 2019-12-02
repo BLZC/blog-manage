@@ -25,18 +25,29 @@
   </div>
 </template>
 <script>
+import { JSEncrypt } from 'jsencrypt';
 export default {
   data () {
     return {
       account: 'test',
       password: '123456',
-      loading: false
+      loading: false,
+      pubKey: ''
     };
+  },
+  created () {
+    this.getKey();
   },
   methods: {
     //  密码框获取焦点
     jumpNext () {
       this.$refs.inputPassword.focus();
+    },
+    // 获取公钥
+    getKey () {
+      this.$post('/getPubKey', {}).then(res => {
+        this.pubKey = res.key;
+      });
     },
     //  登录
     Login () {
@@ -46,8 +57,11 @@ export default {
         this.$LZCMessage('密码不能为空', 'error');
       } else {
         this.loading = true;
-        this.$post('/login', { account: this.account, password: this.password }).then(res => {
-          if (res.code) {
+        let encrypt = new JSEncrypt();
+        encrypt.setPublicKey(this.pubKey);
+        let _pwd = encrypt.encrypt(this.password);
+        this.$post('/login', { account: this.account, password: _pwd }).then(res => {
+          if (res.code === 1) {
             this.loading = false;
             this.$LZCMessage(res.message, 'success');
             let initItem = {
