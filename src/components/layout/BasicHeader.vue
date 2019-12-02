@@ -18,7 +18,6 @@
           <el-dropdown size="mini" @command="handClick">
             <span class="el-dropdown-link">
                 <aplayer ref="aplayer"
-                        autoplay
                         mini
                         shuffle
                         :list="musicList"
@@ -26,10 +25,9 @@
                 />
             </span>
             <el-dropdown-menu slot="dropdown">
-              <!-- <el-dropdown-item>黄金糕</el-dropdown-item> -->
-              <el-dropdown-item command="m">
-                <el-link type="primary">更多...</el-link>
-              </el-dropdown-item>
+              <el-dropdown-item command="p">上一首</el-dropdown-item>
+              <el-dropdown-item command="n">下一首</el-dropdown-item>
+              <el-dropdown-item command="m">更多歌曲</el-dropdown-item>
             </el-dropdown-menu>
           </el-dropdown>
         </div>
@@ -82,22 +80,23 @@ export default {
       isfull: false /* 是否在全屏状态 */
     };
   },
+  components: {
+    Aplayer
+  },
   computed: {
-    /* 菜单栏开关 */
+    // 菜单栏开关
     vicon () {
       return this.$store.state.home.icon;
     },
-    /* 菜单栏标题 */
+    // 菜单栏标题
     tipText () {
       return this.$store.state.home.tipText;
     },
+    // 歌曲列表
     musicList () {
-      let _curMusic = {};
-      if (this.$store.state.music.musicList) {
-        _curMusic = this.$store.state.music.musicList;
-      }
-      return _curMusic;
+      return this.$store.state.music.musicList;
     },
+    // 当前播放歌曲
     currentMusic () {
       return this.$store.state.music.currentMusic;
     }
@@ -112,9 +111,6 @@ export default {
   },
   created () {
     this.getAllMusic();
-  },
-  components: {
-    Aplayer
   },
   methods: {
     // 改变Side状态
@@ -136,6 +132,34 @@ export default {
     setMusic () {
       this.$router.push('/music');
     },
+    // 上一首
+    preMusic () {
+      let _list = this.musicList;
+      let _cur = this.currentMusic;
+      let _index = _list.indexOf(_cur);
+      let _pre = null;
+      if (_index === 0) {
+        _pre = _list.length - 1;
+      } else {
+        _pre = _index - 1;
+      }
+      this.$store.commit('setCurrentMusic', _list[_pre]);
+      this.$cookies.set('currentMusic', _list[_pre]);
+    },
+    // 下一首
+    nextMusic () {
+      let _list = this.musicList;
+      let _cur = this.currentMusic;
+      let _index = _list.indexOf(_cur);
+      let _next = null;
+      if (_index === _list.length - 1) {
+        _next = 0;
+      } else {
+        _next = _index + 1;
+      }
+      this.$store.commit('setCurrentMusic', _list[_next]);
+      this.$cookies.set('currentMusic', _list[_next]);
+    },
     // 下拉菜单点击事件
     handClick (command) {
       switch (command) {
@@ -150,6 +174,14 @@ export default {
         case 'm':
           // 歌曲设置
           this.setMusic();
+          break;
+        case 'p':
+          // 上一首
+          this.preMusic();
+          break;
+        case 'n':
+          // 下一首
+          this.nextMusic();
           break;
         default:
           break;

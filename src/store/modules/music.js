@@ -17,17 +17,11 @@ export default {
       state.musicList = value;
     },
     setCurrentMusic (state, value) {
+      let _currentMusic = VueCookies.get('currentMusic');
       if (value) {
         state.currentMusic = value;
       } else {
-        let _currentMusic = VueCookies.get('currentMusic');
-        if (_currentMusic) {
-          state.currentMusic = _currentMusic;
-        } else if (state.musicList.length > 0) {
-          state.currentMusic = state.musicList[0];
-        } else {
-          state.currentMusic = {};
-        }
+        state.currentMusic = _currentMusic || (state.musicList.length > 0 ? state.musicList[0] : {});
       }
     }
   },
