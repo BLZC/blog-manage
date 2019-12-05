@@ -1,6 +1,8 @@
 <!-- 文章管理 -->
 <template>
-  <div class="articleManage">
+  <div class="Push">
+    <add-form :dialog="dialog"
+              :data="childForm"></add-form>
     <top-btn>
       <div class="item_ipt">
         <el-input placeholder="请输入查询条件，点击回车确认"
@@ -17,7 +19,7 @@
       <div class="item_btn">
         <el-button type="danger"
                    @click="Deleteall"
-                   icon="el-icon-delete">删除</el-button>
+                   icon="el-icon-delete">批量删除</el-button>
       </div>
     </top-btn>
     <Table :Tabledata="tableData"
@@ -26,12 +28,21 @@
            :dialog="dialog">
       <el-table-column fixed="right"
                        label="操作"
-                       width="180">
+                       width="200">
         <template slot-scope="scope">
-          <el-button v-for="bitem in Slotbuttons"
-                     :key="bitem.id"
-                     @click="Handle(scope.row, bitem.id, bitem.url)"
-                     :type="bitem.type">{{bitem.text}}</el-button>
+          <template v-for="bitem in Slotbuttons">
+            <span :key="bitem.id">
+              <el-button v-if="bitem.iscopy"
+                        :type="bitem.type"
+                        v-clipboard:copy="path+scope.row.title"
+                        v-clipboard:success="onCopy"
+                        v-clipboard:error="onError">{{bitem.text}}</el-button>
+              <el-button v-else
+                        @click="Handle(scope.row, bitem.id, bitem.url)"
+                        :type="bitem.type">{{bitem.text}}</el-button>
+            </span>
+            &nbsp; &nbsp;
+          </template>
         </template>
       </el-table-column>
     </Table>
@@ -42,6 +53,8 @@
 import TopBtn from '../../../components/topbtns';
 // Table component
 import Table from '../../../components/table';
+// Dialog component
+import AddForm from './AddForm';
 export default {
   data () {
     return {
@@ -50,17 +63,20 @@ export default {
         psize: 10,
         total: null
       } /* 分页设置 */,
+      httplist: '',
+      path: 'http://49.235.8.149:9001/upload/',
       Slotbuttons: [
         {
           id: 1,
+          iscopy: true,
           type: 'text',
-          url: '/getArticleById',
-          text: '编辑'
+          url: '/getAddress',
+          text: '复制链接'
         },
         {
           id: 2,
           type: 'text',
-          url: '/deleteArticle',
+          url: '/deleteResource',
           text: '删除'
         }
       ] /* Table operator */,
@@ -79,27 +95,27 @@ export default {
         },
         {
           id: 2,
-          prop: 'author',
-          label: '作者',
-          width: '180'
+          prop: 'size',
+          label: '大小',
+          width: '120'
         },
         {
           id: 3,
           prop: 'time',
-          label: '发表时间',
+          label: '上传时间',
           width: '120'
         },
 
         {
           id: 4,
-          prop: 'belong',
-          label: '分类',
+          prop: 'author',
+          label: '上传者',
           width: '120'
         },
         {
           id: 5,
-          prop: 'content',
-          label: '内容'
+          prop: 'type',
+          label: '类型'
         }
       ] /* Table Header config */,
       tableData: [] /* table data */
@@ -107,16 +123,23 @@ export default {
   },
   components: {
     Table,
+    AddForm,
     TopBtn
   },
   mounted () {
     // 初始化数据
-    this.getUsers();
+    this.getAllResources();
   },
   methods: {
+    onCopy: function (e) {
+      this.$LZCMessage('复制成功', 'success');
+    },
+    onError: function (e) {
+      this.$LZCMessage('error', 'success');
+    },
     // get user list
-    getUsers () {
-      this.$get('/articles').then(res => {
+    getAllResources () {
+      this.$get('/getAllResources').then(res => {
         if (res.code) {
           this.tableData = res.data;
           this.pagination.total = res.data.length;
@@ -125,21 +148,14 @@ export default {
     },
     // add user
     Add () {
-      this.$cookies.remove('isedit');
-      this.$router.push({
-        path: '/edit'
-      });
-    },
-    // edit user
-    Edit (id, url) {
-      this.$cookies.set('isedit', id);
-      this.$router.push('/edit');
+      this.dialog.show = true;
+      this.dialog.title = '文件上传';
     },
     // handle Function
     Handle (row, type, url) {
       switch (type) {
         case 1:
-          this.Edit(row.id, url);
+          this.getAddress(row.id, url);
           break;
         case 2:
           this.Deleteone(row.id, url);
@@ -156,7 +172,7 @@ export default {
         this.$delete(url + '/' + id).then(res => {
           if (res.code) {
             this.$LZCMessage('删除成功！', 'success');
-            this.getUsers();
+            this.getAllResources();
           }
         });
       }).catch(() => {});

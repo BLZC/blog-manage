@@ -19,6 +19,12 @@ let blog = [
     name: 'edit',
     meta: { title: '文章编辑' },
     component: () => import('../../views/blog/ArticleManage/Edit')
+  },
+  {
+    path: '/staticResource',
+    name: 'staticResource',
+    meta: { title: '资源管理' },
+    component: () => import('../../views/blog/StaticResource/Push')
   }
 ];
 export { blog };

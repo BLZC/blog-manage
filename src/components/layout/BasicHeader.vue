@@ -18,6 +18,7 @@
           <el-dropdown size="mini" @command="handClick">
             <span class="el-dropdown-link">
                 <aplayer ref="aplayer"
+                        autoplay
                         mini
                         shuffle
                         :list="musicList"

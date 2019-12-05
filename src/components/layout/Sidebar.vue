@@ -108,6 +108,13 @@ export default {
               path: '/articleManage',
               name: 'articleManage',
               icon: ''
+            },
+            {
+              id: 14,
+              title: '资源管理',
+              path: '/staticResource',
+              name: 'staticResource',
+              icon: ''
             }
           ]
         },

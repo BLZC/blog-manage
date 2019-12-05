@@ -5,7 +5,6 @@ import store from './store';
 import 'babel-polyfill';
 import ElementUI from 'element-ui';
 import VueSocketIO from 'vue-socket.io';
-import socketio from 'socket.io-client';
 // 全局注册组件
 import './components/global';
 // Vue富文本编辑器
@@ -14,9 +13,13 @@ import VueQuillEditor from 'vue-quill-editor';
 // import locale from 'element-ui/lib/locale/lang/en';
 
 import 'element-ui/lib/theme-chalk/index.css';
+
+// 复制
+import VueClipboard from 'vue-clipboard2';
 // 去掉开发环境的控制台提示
 Vue.config.productionTip = false;
-
+VueClipboard.config.autoSetContainer = true; // add this line
+Vue.use(VueClipboard);
 Vue.use(ElementUI);
 Vue.use(new VueSocketIO({
   debug: true,

@@ -37,6 +37,7 @@
 
 .el-dialog {
   width: 780px !important;
+  min-height: 300px;
 }
 .el-form-item__label {
   width: 120px !important;

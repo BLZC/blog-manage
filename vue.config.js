@@ -4,7 +4,7 @@ const path = require('path');
 function resolve (dir) {
   return path.join(__dirname, dir);
 }
-const proxyUrl = 'http://127.0.0.1:9001';
+const proxyUrl = 'http://localhost:9001';
 const CompressionWebpackPlugin = require('compression-webpack-plugin');
 const productionGzipExtensions = ['js', 'css'];
 const isProduction = process.env.NODE_ENV === 'production';
