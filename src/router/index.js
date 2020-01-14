@@ -41,6 +41,12 @@ let router = new Router({
           meta: { title: '消息列表' },
           component: () => import('../views/MessageManage/Message')
         },
+        {
+          path: '/test',
+          name: 'test',
+          meta: { title: '测试' },
+          component: () => import('../views/test/test.vue')
+        },
         ...charts,
         ...blog,
         // 视频播放

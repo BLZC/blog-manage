@@ -15,12 +15,13 @@
               :offset="16"
               class="message">
         <div class="top-icon">
-          <el-dropdown size="mini" @command="handClick">
+          <!-- <el-dropdown size="mini" @command="handClick">
             <span class="el-dropdown-link">
                 <aplayer ref="aplayer"
                         autoplay
                         mini
                         shuffle
+                        mode="order"
                         :list="musicList"
                         :music="currentMusic"
                 />
@@ -30,7 +31,7 @@
               <el-dropdown-item command="n">下一首</el-dropdown-item>
               <el-dropdown-item command="m">更多歌曲</el-dropdown-item>
             </el-dropdown-menu>
-          </el-dropdown>
+          </el-dropdown> -->
         </div>
         <div class="top-icon">
           <el-tooltip effect="dark"
@@ -71,8 +72,8 @@
   </div>
 </template>
 <script>
-import Aplayer from 'vue-aplayer';
-Aplayer.disableVersionBadge = true;
+// import Aplayer from 'vue-aplayer';
+// Aplayer.disableVersionBadge = true;
 export default {
   data () {
     return {
@@ -82,7 +83,7 @@ export default {
     };
   },
   components: {
-    Aplayer
+    // Aplayer
   },
   computed: {
     // 菜单栏开关
@@ -104,14 +105,14 @@ export default {
   },
   watch: {
     // 换歌后自动播放
-    '$store.state.music.currentMusic': function () {
-      this.$nextTick(() => {
-        this.$refs.aplayer.play();
-      });
-    }
+    // '$store.state.music.currentMusic': function () {
+    //   this.$nextTick(() => {
+    //     this.$refs.aplayer.play();
+    //   });
+    // }
   },
   created () {
-    this.getAllMusic();
+    // this.getAllMusic();
   },
   methods: {
     // 改变Side状态

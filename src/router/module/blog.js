@@ -3,6 +3,12 @@
  */
 let blog = [
   {
+    path: '/menuManage',
+    name: 'menuManage',
+    meta: { title: '标签管理' },
+    component: () => import('../../views/blog/MenuManage/MenuManage')
+  },
+  {
     path: '/userManage',
     name: 'userManage',
     meta: { title: '用户管理' },

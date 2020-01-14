@@ -1,3 +1,3 @@
 import usr from './modules/usermanage';
-
-export { usr };
+import menu from './modules/menumanage';
+export { usr, menu };

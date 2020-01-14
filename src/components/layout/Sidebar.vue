@@ -50,23 +50,30 @@
 <script>
 export default {
   data () {
+    function * createId () {
+      let id = 0;
+      while (true) {
+        yield ++id;
+      }
+    }
+    const creID = createId();
     return {
       lists: [
         {
-          id: 1,
+          id: creID.next().value,
           title: '信息管理',
           path: '1',
           icon: 'iconfont iconkerenxinxiguanli',
           children: [
             {
-              id: 2,
+              id: creID.next().value,
               title: '个人信息',
               path: '/about',
               name: 'about',
               icon: ''
             },
             {
-              id: 3,
+              id: creID.next().value,
               title: '消息列表',
               path: '/message',
               name: 'message',
@@ -75,42 +82,56 @@ export default {
           ]
         },
         {
-          id: 4,
+          id: creID.next().value,
           title: '图表库',
           path: '2',
           icon: 'iconfont icontubiao',
           children: [
             {
-              id: 5,
+              id: creID.next().value,
               title: 'schart图表',
               path: '/schart',
               name: 'schart',
+              icon: ''
+            },
+            {
+              id: creID.next().value,
+              title: 'dataV',
+              path: '/dataV',
+              name: 'dataV',
               icon: ''
             }
           ]
         },
         {
-          id: 6,
+          id: creID.next().value,
           title: '博客系统',
           path: '4',
           icon: 'iconfont iconbokeblogger3',
           children: [
             {
-              id: 7,
+              id: creID.next().value,
+              title: '标签管理',
+              path: '/menuManage',
+              name: 'menuManage',
+              icon: ''
+            },
+            {
+              id: creID.next().value,
               title: '用户管理',
               path: '/userManage',
               name: 'userManage',
               icon: ''
             },
             {
-              id: 8,
+              id: creID.next().value,
               title: '文章管理',
               path: '/articleManage',
               name: 'articleManage',
               icon: ''
             },
             {
-              id: 14,
+              id: creID.next().value,
               title: '资源管理',
               path: '/staticResource',
               name: 'staticResource',
@@ -119,20 +140,20 @@ export default {
           ]
         },
         {
-          id: 9,
+          id: creID.next().value,
           title: '在线聊天',
           path: '5',
           icon: 'iconfont iconliaotian',
           children: [
             {
-              id: 10,
+              id: creID.next().value,
               title: '在线聊天',
               path: '/chat',
               name: 'chat',
               icon: ''
             },
             {
-              id: 13,
+              id: creID.next().value,
               title: '音乐鉴赏',
               path: '/music',
               name: 'music',
@@ -141,13 +162,13 @@ export default {
           ]
         },
         {
-          id: 11,
+          id: creID.next().value,
           title: '视频插件',
           path: '6',
           icon: 'iconfont iconshipin',
           children: [
             {
-              id: 12,
+              id: creID.next().value,
               title: '视频播放',
               path: '/videoPlay',
               name: 'videoPlay',
@@ -156,13 +177,28 @@ export default {
           ]
         },
         {
-          id: 17,
-          title: '系统配置',
+          id: creID.next().value,
+          title: '测试',
           path: '7',
+          icon: 'iconfont iconceshidianwei',
+          children: [
+            {
+              id: creID.next().value,
+              title: '测试',
+              path: '/test',
+              name: 'test',
+              icon: ''
+            }
+          ]
+        },
+        {
+          id: creID.next().value,
+          title: '系统配置',
+          path: '8',
           icon: 'iconfont iconxitong',
           children: [
             {
-              id: 18,
+              id: creID.next().value,
               title: '404',
               path: '/404',
               name: 'errpage',

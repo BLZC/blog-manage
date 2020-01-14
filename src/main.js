@@ -12,6 +12,8 @@ import VueQuillEditor from 'vue-quill-editor';
 // 国际化
 // import locale from 'element-ui/lib/locale/lang/en';
 
+// 数据可视化
+import dataV from '@jiaminghi/data-view';
 import 'element-ui/lib/theme-chalk/index.css';
 
 // 复制
@@ -19,6 +21,7 @@ import VueClipboard from 'vue-clipboard2';
 // 去掉开发环境的控制台提示
 Vue.config.productionTip = false;
 VueClipboard.config.autoSetContainer = true; // add this line
+Vue.use(dataV);
 Vue.use(VueClipboard);
 Vue.use(ElementUI);
 Vue.use(new VueSocketIO({

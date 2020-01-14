@@ -149,6 +149,9 @@ export default {
     position: relative;
     width: 100px;
     height: 35px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
     cursor: pointer;
     line-height: 35px;
     background: rgba(0, 0, 0, 0.5);
@@ -162,6 +165,7 @@ export default {
     background: #f0f0f0;
     color: #000;
     .text {
+      height: 35px;
       width: 70%;
       text-align: right;
     }

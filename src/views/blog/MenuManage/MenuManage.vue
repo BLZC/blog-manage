@@ -1,6 +1,6 @@
 <!-- 用户管理 -->
 <template>
-  <div class="userManage">
+  <div class="menuManage">
     <add-form :dialog="dialog"
               :data="childForm"></add-form>
     <top-btn>
@@ -61,7 +61,7 @@ export default {
         {
           id: 1,
           type: 'text',
-          url: '/getuserDetail',
+          url: '/updateLabel',
           text: '编辑'
         },
         {
@@ -86,27 +86,21 @@ export default {
       tbHeader: [
         {
           id: 1,
-          prop: 'username',
-          label: '姓名',
+          prop: 'index',
+          label: '菜单序号',
           width: '180'
         },
         {
           id: 2,
-          prop: 'account',
-          label: '账号',
+          prop: 'label',
+          label: '标签序号',
           width: '180'
         },
         {
           id: 3,
-          prop: 'password',
-          label: '密码',
-          width: '120'
-        },
-
-        {
-          id: 4,
-          prop: 'touxiang',
-          label: '头像'
+          prop: 'name',
+          label: '标签名',
+          width: ''
         }
       ] /* Table Header config */,
       tableData: [] /* table data */
@@ -119,12 +113,12 @@ export default {
   },
   mounted () {
     // 初始化数据
-    this.getUsers();
+    this.getLabels();
   },
   methods: {
     // get user list
-    getUsers () {
-      this.$get('/users').then(res => {
+    getLabels () {
+      this.$get('/label').then(res => {
         if (res.code) {
           this.tableData = res.data;
           this.pagination.total = res.data.length;
@@ -137,11 +131,9 @@ export default {
       this.dialog.title = '新增';
       this.dialog.type = 1;
       this.childForm = {
-        name: '',
-        age: null,
-        sex: null,
-        birth: '',
-        address: ''
+        index: null,
+        label: null,
+        name: ''
       };
     },
     // edit user
@@ -151,7 +143,7 @@ export default {
       this.dialog.type = 2;
       this.$post(url, { id: id.id }).then(res => {
         if (res.status) {
-          this.childForm = res.result;
+          this.childForm = res.data;
         }
       });
     },
@@ -216,3 +208,10 @@ export default {
   }
 };
 </script>
+<style lang="scss">
+  .menuManage {
+    .el-dialog {
+      width: 450px !important;
+    }
+  }
+</style>

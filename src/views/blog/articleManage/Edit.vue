@@ -16,7 +16,7 @@
           <el-option v-for="item in classification"
                     :key="item.id"
                     :label="item.name"
-                    :value="item.id">
+                    :value="item.label">
           </el-option>
         </el-select>
       </el-col>
@@ -104,7 +104,7 @@ export default {
     },
     // 获取文章分类
     getclassification () {
-      this.$get('/categories').then(res => {
+      this.$get('/label').then(res => {
         this.classification = res.data;
       });
     },
@@ -114,12 +114,14 @@ export default {
         let data = {
           title: this.title,
           author: this.$getls('user'),
-          time: new Date().toLocaleDateString(),
+          lastEditTime: new Date().toLocaleDateString(),
           belong: this.belong,
           content: this.doc
         };
         if (this.isEdit) {
           data.id = this.articleId;
+        } else {
+          data.time = new Date().toLocaleDateString();
         }
         let _url = this.isEdit ? '/updateArticle' : 'addArticle';
         let requestHeader = this.isEdit ? this.$put : this.$post;
