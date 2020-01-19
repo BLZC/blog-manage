@@ -14,10 +14,9 @@ module.exports = {
         args: 'none'
       }
     ],
-    semi: ['error', 'always'],
-    eqeqeq: 0,
-    'one-var': 0,
-    camelcase: 0
+    semi: [0, 'always'], //是否以分号结尾都可以
+    eqeqeq: 0, //比较的时候使用严格等于
+    'one-var': 0, //强制变量声明放在一起
   },
   parserOptions: {
     parser: 'babel-eslint'

@@ -43,6 +43,16 @@ import { mavonEditor } from 'mavon-editor';
 import 'mavon-editor/dist/css/index.css';
 import { setTimeout } from 'timers';
 export default {
+  props: {
+    Close: {
+      type: Function,
+      required: true
+    },
+    getArticleList: {
+      type: Function,
+      required: true
+    }
+  },
   data () {
     return {
       articleId: null /* 文章id */,
@@ -60,11 +70,10 @@ export default {
     this.judgeType();
     this.getclassification();
   },
-  mounted () {},
   methods: {
     // 返回文章管理页
     goBack () {
-      this.$router.push('/articleManage');
+      this.Close()
     },
 
     // 判断是否是编辑页面
@@ -80,7 +89,10 @@ export default {
           this.belong = res.data.belong;
           this.doc = res.data.content;
         });
-      } else {
+      } else if (this.$getls('isCache') &&
+                (this.$getls('blogContent') ||
+                this.$getls('blogTitle') ||
+                this.$getls('blogBelong'))) {
         this.$confirm('上次您有保存后未发表的文件，是否恢复？', '提示', {
           confirmButtonText: '确定',
           cancelButtonText: '取消',
@@ -94,6 +106,8 @@ export default {
           this.$deletels('blogTitle');
           this.$deletels('blogBelong');
         });
+      } else {
+        this.$setls('isCache', true)
       }
     },
     // 文章内容缓存
@@ -101,6 +115,12 @@ export default {
       this.$setls('blogTitle', this.title);
       this.$setls('blogBelong', this.belong);
       this.$setls('blogContent', this.doc);
+    },
+    // 清除文章缓存
+    clearStorage () {
+      this.$clearls('blogContent')
+      this.$clearls('blogTitle')
+      this.$clearls('isCache')
     },
     // 获取文章分类
     getclassification () {
@@ -128,6 +148,9 @@ export default {
         requestHeader(_url, data).then(res => {
           if (res.code) {
             this.$LZCMessage('发表成功', 'success');
+            this.Close()
+            this.getArticleList()
+            this.clearStorage()
           }
         });
       } else {
@@ -155,13 +178,22 @@ export default {
 </script>
 <style lang="scss" scoped>
 .markdown-edit {
-  padding: 0 10px;
+  padding: 10px;
+  z-index: 99;
+  position: absolute;
+  height: 100%;
+  width: 100%;
+  top: 0;
+  left: 0;
+  background: #fff;
+  overflow-y: scroll;
   .mark-header {
     height: 65px;
     line-height: 65px;
   }
   .markdown-body {
     width: 100%;
+    min-height: calc(100vh - 270px);
   }
 }
 </style>

@@ -32,9 +32,9 @@ export default {
   },
   methods: {
     // 信息提交
-    submitUpload() {
+    submitUpload () {
       this.$refs.upload.submit();
-    },
+    }
   }
 };
 </script>

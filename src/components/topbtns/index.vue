@@ -1,10 +1,10 @@
 <template name="component-name">
-  <div class="topbtn lzc-flex">
+  <div class="topbtns lzc-flex">
     <slot></slot>
   </div>
 </template>
 <style lang="scss" scoped>
-.topbtn {
+.topbtns {
   .item_ipt {
     width: 250px;
   }
