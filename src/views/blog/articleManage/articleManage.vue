@@ -120,7 +120,7 @@ export default {
 
         {
           id: 4,
-          prop: 'belong',
+          prop: 'category.name',
           label: '分类',
           width: '120'
         },
@@ -145,7 +145,7 @@ export default {
       this.$get(`/articles/${_limit}/${_offset}`).then(res => {
         if (res.code) {
           this.tableData = res.data;
-          this.pagination.total = res.length;
+          this.pagination.total = res.total;
           // 0 --> 暂无数据 1--> 数据加载中  2-->数据加载成功
           if (res.length <= 0) {
             this.dataStatus = 0
@@ -160,10 +160,11 @@ export default {
       let _limit = this.limit,
         _offset = this.offset,
         _searchCondition = this.searchCondition
-      this.$get(`/getArticleBlurry/${_limit}/${_offset}/${_searchCondition}`).then(res => {
+      let url = _searchCondition ? `/getArticleBlurry/${_limit}/${_offset}/${_searchCondition}` : `/articles/${_limit}/${_offset}`
+      this.$get(url).then(res => {
         if (res.code) {
           this.tableData = res.data;
-          this.pagination.total = res.data.length;
+          this.pagination.total = res.total;
         }
       })
     },
