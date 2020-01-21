@@ -26,7 +26,7 @@ Vue.use(VueClipboard);
 Vue.use(ElementUI);
 Vue.use(new VueSocketIO({
   debug: true,
-  connection: 'http://localhost:9090'
+  connection: 'http://49.235.8.149:9090'
 }));
 Vue.use(VueQuillEditor /* { default global options } */);
 new Vue({

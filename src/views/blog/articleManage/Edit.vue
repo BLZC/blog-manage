@@ -133,7 +133,7 @@ export default {
       if (this.title && this.belong) {
         let data = {
           title: this.title,
-          author: this.$getls('user'),
+          author: this.$getls('user') || '佚名',
           lastEditTime: new Date().toLocaleDateString(),
           belong: this.belong,
           content: this.doc

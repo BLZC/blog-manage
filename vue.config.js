@@ -5,8 +5,8 @@ function resolve (dir) {
   return path.join(__dirname, dir);
 }
 // const FileListPlugin = require('./lzc');
-// const proxyUrl = 'http://49.235.8.149:9001';
-const proxyUrl = 'http://localhost:9001';
+const proxyUrl = 'http://49.235.8.149:9001';
+// const proxyUrl = 'http://localhost:9001';
 const CompressionWebpackPlugin = require('compression-webpack-plugin');
 const productionGzipExtensions = ['js', 'css'];
 const isProduction = process.env.NODE_ENV === 'production';
